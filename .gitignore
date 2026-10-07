@@ -1,0 +1,9 @@
+node_modules/
+originals/
+verification/*.png
+verification/results.json
+verification/cross-browser-results.json
+verification/performance.json
+verification/before-*
+verification/*.svg
+verification/*.csv

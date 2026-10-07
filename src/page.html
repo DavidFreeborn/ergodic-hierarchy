@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore the ergodic hierarchy with six interactive simulations: non-ergodic, ergodic, weak mixing, strong mixing, K and Bernoulli systems, with definitions and graphs.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.davidpeterwallisfreeborn.com/fun/ergodic-hierarchy/">
+<meta property="og:title" content="Ergodic Hierarchy Visualiser | David Freeborn">
+<meta property="og:description" content="Compare six measure-preserving systems, from non-ergodic motion to Bernoulli dynamics, with interactive simulations, definitions and graphs.">
+<meta property="og:url" content="https://www.davidpeterwallisfreeborn.com/fun/ergodic-hierarchy/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="color-scheme" content="light"><title>Ergodic Hierarchy Visualiser | David Freeborn</title><style id="tool-shell">/* EMBED_STYLE */</style></head>
+<body class="tool-page">
+<a class="skip" href="#experiment">Skip to the visualiser</a>
+<nav class="tool-navigation" aria-label="Website"><a href="https://www.davidpeterwallisfreeborn.com/">David Peter Wallis Freeborn</a><a href="https://www.davidpeterwallisfreeborn.com/fun/">← Back to Interactive Tools</a></nav>
+<main class="page">
+<h1>The ergodic hierarchy</h1>
+<div id="instrument">
+<div class="toolbar" role="group" aria-label="Simulation controls">
+<div class="transport"><button id="play" class="primary">Play</button><button id="step">Step</button><button id="reset">Reset</button></div>
+<div class="time-control"><label for="time">Step <output id="tread">0</output></label><input id="time" type="range" min="0" max="64" step="0.01" value="0" aria-label="Simulation time, in map steps"><span class="limit" aria-hidden="true">64</span></div>
+<label class="control" for="mode">Display<select id="mode"><option value="particles">Points</option><option value="cells">Cells</option></select></label>
+<div class="grid-control"><label class="control" for="gridN">Starting grid<select id="gridN"><option value="1x2">1 × 2</option><option value="2x2" selected>2 × 2</option><option value="4x4">4 × 4</option></select></label><svg id="colourKey" role="img" aria-label="Colours identify the starting grid cells"></svg></div>
+<label class="control" for="speed">Speed<select id="speed"><option value="0.25">¼ step/s</option><option value="0.5" selected>½ step/s</option><option value="1">1 step/s</option></select></label>
+<button id="fullscreen" aria-pressed="false">Full screen</button>
+</div>
+<section id="experiment" aria-label="Six phase-space simulations">
+<div id="portraits" class="portraits"><!-- PORTRAITS --></div>
+</section>
+</div>
+<section class="measurement-section" aria-label="Measurements">
+<p class="metric-notation">After n steps, C₀ is a particle’s starting grid cell and Cₙ is its current cell. Probabilities refer to a particle chosen uniformly from the sample.</p>
+<div class="metric-definitions"><!-- METRIC_DEFINITIONS --></div>
+</section>
+<section class="hierarchy-section" aria-label="The hierarchy and its definitions">
+<p class="implications">Bernoulli ⇒ K ⇒ strong mixing ⇒ weak mixing ⇒ ergodic</p>
+<div class="notation">
+<p>T is the evolution map: T(x) is the position of a point x after one step, and Tⁿ(x) is its position after n steps.</p>
+<p>μ is the probability measure on the state space: μ(A) is the probability that a point sampled from this distribution lies in the measurable region A. Here, μ is uniform area measure, so μ(A) equals the area of A divided by the area of the whole square.</p>
+<p>Each map preserves μ: a point initially sampled from μ still has distribution μ after any number of steps.</p>
+<p>x is the starting point and N is the number of recorded positions. The recorded positions are x, T(x), …, Tᴺ⁻¹(x).</p>
+</div>
+<div id="systemRows"><!-- SYSTEM_ROWS --></div>
+</section>
+<details class="method"><summary>About the experiment and references</summary>
+<p>The six views share 1,400 points sampled by seeded stratification. Changing the grid assigns each point a new starting-cell colour and uses that same partition to measure its current cell. In Cells mode, each cell is divided into bars proportional to its colour counts, ordered by starting cell from left to right and bottom to top.</p>
+<p>Each map preserves uniform area. Independent starting and current cells therefore match with probability 1/q. Cell-return correlation measures excess agreement above this rate; its range is −1/(q − 1) to 1. Coarse memory measures any dependence between the cells. A permutation that moves every cell elsewhere gives R = −1/(q − 1) but M = 1. Zero return correlation need not mean independence. The reference rate uses uniform area, rather than fitted sample frequencies.</p>
+<p>Time-average error uses each particle’s n + 1 observed positions, from step 0 through step n. It is the total variation distance between that particle’s cell-visit frequencies and the uniform distribution, averaged over particles. Absolute deviations are calculated before averaging, so particles confined to different regions cannot cancel each other’s errors. Ergodicity implies D(n) → 0 for every fixed grid in the infinite-time limit; a finite trace does not establish ergodicity.</p>
+<h2>Maps used above</h2>
+<div class="map-examples"><!-- MAP_EXAMPLES --></div>
+<p>The first five examples fail the next stronger condition. The Chacon and staircase towers are extended until every displayed path avoids the top; no periodic closure is used.</p>
+<p>The K example is Kalikow’s T,T⁻¹ system. Each coordinate encodes a two-sided binary sequence in the order 0, +1, −1, +2, −2, … . One step shifts the x-sequence forward and shifts the y-sequence left or right according to the current x-bit. The sequences are sampled once; no new randomness enters during motion. All digits needed for the 64-step display are retained.</p>
+<p>Kalikow and baker use 192-bit initial coordinates. Curves use integer steps; animation illustrates the transitions. Chacon and staircase motion is shown horizontally, then vertically, to separate the two coordinate operations. The panels share samples and observation grids, but their coordinate representations differ: visual complexity and the speed of a finite correlation trace do not order the hierarchy.</p>
+<p>The hierarchy concerns invertible, measure-preserving maps on standard probability spaces. Regions and codings are measurable; statements ignore sets of probability zero. Its definitions concern all regions and arbitrarily long times. Sample estimates have finite-size error; memory estimates have upward bias, which grows with finer partitions.</p>
+<p>For an outcome Z with probabilities p<sub>z</sub>, Shannon entropy is</p><div class="equation" data-tex="H(Z)=-\sum_z p_z\log_2 p_z"></div>
+<p>To compute H(C₀ | Cₙ), calculate the entropy of the starting-cell labels within each current cell, then average over current cells in proportion to their particle counts. The K definition uses the same conditional entropy with the entire past label sequence given; equivalently, it requires positive entropy rate for every finite partition with at least two regions of positive measure.</p>
+<section class="references" aria-labelledby="references-title"><h2 id="references-title">References</h2>
+<p><a href="https://plato.stanford.edu/entries/ergodic-hierarchy/">The Ergodic Hierarchy</a>, <em>Stanford Encyclopedia of Philosophy</em>: the hierarchy, its mathematical definitions and its interpretation in physics.</p>
+<p>Darren Creutz, <a href="https://www.dcreutz.com/publications/Ergodic_Theory_of_Group_Actions.pdf">Ergodic Theory of Group Actions</a>, §§3, 5.2 and 6: ergodicity, cutting and stacking, weak mixing and Chacon’s transformation.</p>
+<p>Boris Hasselblatt and Anatole Katok, <a href="https://doi.org/10.1016/S1874-575X(06)80026-3">Principal structures</a>, in <em>Handbook of Dynamical Systems</em>: entropy, K and Bernoulli systems.</p>
+<p>Darren Creutz and Cesar Silva, <a href="https://arxiv.org/abs/math/0603553">Mixing on Rank-One Transformations</a>: the staircase construction and its mixing property.</p>
+<p>Steven Kalikow, <a href="https://annals.math.princeton.edu/1981/115-2/p07">T, T⁻¹ transformation is not loosely Bernoulli</a>, <em>Annals of Mathematics</em> 115 (1982), 393–409: the K but non-Bernoulli example. Christopher Hoffman’s <a href="https://sites.math.washington.edu/~hoffman/publications/scenery.pdf">scenery-factor paper</a> gives the explicit transformation.</p>
+<p>Cosma Shalizi, <a href="https://www.stat.cmu.edu/~cshalizi/dm/20/lectures/09/lecture-09.html">Information Theory I</a>: entropy, conditional entropy and mutual information.</p>
+</section>
+</details>
+</main><footer class="tool-footer">© David Freeborn</footer><p id="status" role="status" class="sr-only"></p>
+<noscript><p>The definitions remain readable; JavaScript is needed for the simulations and graphs.</p></noscript>
+<script>/* EMBED_CONTENT */</script><script>/* EMBED_MODEL */</script><script>/* EMBED_APP */</script>
+</body></html>
