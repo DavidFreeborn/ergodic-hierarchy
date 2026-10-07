@@ -3,7 +3,8 @@ const path = require("node:path");
 const katex = require("katex");
 const content = require("./src/content.cjs");
 const root = __dirname;
-const read = (name) => fs.readFileSync(path.join(root, "src", name), "utf8");
+const read = (name) =>
+  fs.readFileSync(path.join(root, "src", name), "utf8").replace(/\r\n/g, "\n");
 const font = fs
   .readFileSync(path.join(root, "src", "eb-garamond.woff2"))
   .toString("base64");
@@ -62,9 +63,11 @@ for (const name of [
   fs.writeFileSync(path.join(root, name), html);
 fs.mkdirSync(path.join(root, "dist"), { recursive: true });
 fs.writeFileSync(path.join(root, "dist", "index.html"), html);
-fs.copyFileSync(
-  path.join(root, "EB-GARAMOND-OFL.txt"),
+fs.writeFileSync(
   path.join(root, "dist", "EB-GARAMOND-OFL.txt"),
+  fs
+    .readFileSync(path.join(root, "EB-GARAMOND-OFL.txt"), "utf8")
+    .replace(/\r\n/g, "\n"),
 );
 fs.writeFileSync(path.join(root, "dist", ".nojekyll"), "");
 console.log(
